@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lu.its4u.api.basic.domain.DateResponse;
 import lu.its4u.api.basic.domain.DateTimeResponse;
+import lu.its4u.api.basic.domain.HealthResponse;
 import lu.its4u.api.basic.domain.IPResponse;
 import lu.its4u.api.basic.domain.RandomFloatResponse;
 import lu.its4u.api.basic.domain.RandomIntegerResponse;
@@ -34,7 +35,8 @@ public class MainController {
 	}
 
 	@GetMapping(value = { "/headers" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, String>> headers(final HttpServletRequest request, @RequestHeader Map<String, String> headers) {
+	public ResponseEntity<Map<String, String>> headers(final HttpServletRequest request,
+			@RequestHeader Map<String, String> headers) {
 
 		return new ResponseEntity<>(headers, HttpStatus.OK);
 	}
@@ -70,7 +72,8 @@ public class MainController {
 	}
 
 	@GetMapping(value = { "/randomstring" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RandomStringResponse> randomstring(final HttpServletRequest request, @RequestParam(defaultValue = "10", name = "chars", required = false) Integer chars) {
+	public ResponseEntity<RandomStringResponse> randomstring(final HttpServletRequest request,
+			@RequestParam(defaultValue = "10", name = "chars", required = false) Integer chars) {
 		if (chars > 0) {
 			return new ResponseEntity<>(new RandomStringResponse(chars), HttpStatus.OK);
 
@@ -89,6 +92,12 @@ public class MainController {
 	public ResponseEntity<RandomFloatResponse> randomfloat(final HttpServletRequest request) {
 
 		return new ResponseEntity<>(new RandomFloatResponse(), HttpStatus.OK);
+	}
+
+	@GetMapping(value = { "/healthz" }, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<HealthResponse> healthz(final HttpServletRequest request) {
+
+		return new ResponseEntity<>(new HealthResponse(), HttpStatus.OK);
 	}
 
 }
