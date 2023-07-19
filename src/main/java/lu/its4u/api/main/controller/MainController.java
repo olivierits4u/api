@@ -24,6 +24,7 @@ import lu.its4u.api.basic.domain.RandomFloatResponse;
 import lu.its4u.api.basic.domain.RandomIntegerResponse;
 import lu.its4u.api.basic.domain.RandomStringResponse;
 import lu.its4u.api.basic.domain.TimeResponse;
+import lu.its4u.api.helper.Helper;
 
 @RestController
 public class MainController {
