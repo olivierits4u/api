@@ -140,12 +140,17 @@ public class MainController {
 		logger.info(headers.toString());
 
 		logger.info("________________________________________________________");
-		Random random = new Random();
-		StringBuffer sb = new StringBuffer();
-		for (int i = 0; i < 6; i++) {
-			sb.append(Helper.hexDigits[random.nextInt(Helper.hexDigits.length)]);
-		}
-		return new ResponseEntity<>(new HtmlColorResponse(sb.toString()), HttpStatus.OK);
+		try {
+			Random random = new Random();
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < 6; i++) {
+				sb.append(Helper.hexDigits[random.nextInt(Helper.hexDigits.length)]);
+			}
+			return new ResponseEntity<>(new HtmlColorResponse(sb.toString()), HttpStatus.OK);
 
+		} catch (Exception e) {
+			return new ResponseEntity<>(new HtmlColorResponse(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+
+		}
 	}
 }
