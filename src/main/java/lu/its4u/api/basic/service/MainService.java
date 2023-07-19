@@ -26,4 +26,10 @@ public class MainService {
 		return this.mapper.toApiCallResponses(this.repository.findAll());
 	}
 
+	public int purge() {
+		List<ApiCallEntity> list = this.repository.findByCallDateBefore(new Date());
+		this.repository.deleteAll(list);
+		return list.size();
+	}
+
 }

@@ -193,6 +193,16 @@ public class MainController {
 
 	}
 
+	@GetMapping(value = { "/purge" }, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	public ResponseEntity<HealthResponse> purge(final HttpServletRequest request) {
+		this.service.purge();
+		service.saveLogging(getIP(request), "MainController::purge");
+
+		return new ResponseEntity<>(new HealthResponse(), HttpStatus.OK);
+
+	}
+
 	private String getIP(final HttpServletRequest request) {
 		String ipAddress = request.getHeader("X-FORWARDED-FOR");
 		if (ipAddress == null) {
@@ -203,4 +213,5 @@ public class MainController {
 		}
 		return ipAddress;
 	}
+
 }
