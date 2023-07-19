@@ -27,7 +27,7 @@ public class MainService {
 	}
 
 	public int purge() {
-		long delta = 1 * 1000 * 60 * 5;
+		long delta = 1 * 1000 * 60 * 1;
 		List<ApiCallEntity> list = this.repository.findByCallDateBefore(new Date(System.currentTimeMillis() - delta));
 		this.repository.deleteAll(list);
 		return list.size();
