@@ -34,8 +34,6 @@ public class MainController {
 	public ResponseEntity<IPResponse> main(final HttpServletRequest request) {
 		logger.info("________________________________________________________");
 		logger.info("call:main");
-		logger.info(request.toString());
-
 		logger.info("________________________________________________________");
 
 		return ip(request);
@@ -43,7 +41,10 @@ public class MainController {
 
 	@GetMapping(value = { "/**" })
 	public ResponseEntity<String> catchAll(final HttpServletRequest request) {
+		logger.info("________________________________________________________");
 		logger.info("call:catchAll");
+
+		logger.info("________________________________________________________");
 
 		return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -51,14 +52,20 @@ public class MainController {
 	@GetMapping(value = { "/headers" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Map<String, String>> headers(final HttpServletRequest request,
 			@RequestHeader Map<String, String> headers) {
+		logger.info("________________________________________________________");
 		logger.info("call:headers");
+
+		logger.info("________________________________________________________");
 
 		return new ResponseEntity<>(headers, HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/ip" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<IPResponse> ip(final HttpServletRequest request) {
+		logger.info("________________________________________________________");
 		logger.info("call:ip");
+
+		logger.info("________________________________________________________");
 
 		String ipAddress = request.getHeader("X-FORWARDED-FOR");
 		if (ipAddress == null) {
@@ -72,21 +79,30 @@ public class MainController {
 
 	@GetMapping(value = { "/date" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<DateResponse> date(final HttpServletRequest request) {
+		logger.info("________________________________________________________");
 		logger.info("call:date");
+
+		logger.info("________________________________________________________");
 
 		return new ResponseEntity<>(new DateResponse(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/time" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<TimeResponse> time(final HttpServletRequest request) {
+		logger.info("________________________________________________________");
 		logger.info("call:time");
+
+		logger.info("________________________________________________________");
 
 		return new ResponseEntity<>(new TimeResponse(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/datetime" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<DateTimeResponse> datetime(final HttpServletRequest request) {
+		logger.info("________________________________________________________");
 		logger.info("call:datetime");
+
+		logger.info("________________________________________________________");
 
 		return new ResponseEntity<>(new DateTimeResponse(), HttpStatus.OK);
 	}
@@ -94,7 +110,10 @@ public class MainController {
 	@GetMapping(value = { "/randomstring" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RandomStringResponse> randomstring(final HttpServletRequest request,
 			@RequestParam(defaultValue = "10", name = "chars", required = false) Integer chars) {
+		logger.info("________________________________________________________");
 		logger.info("call:randomstring");
+
+		logger.info("________________________________________________________");
 
 		if (chars > 0) {
 			return new ResponseEntity<>(new RandomStringResponse(chars), HttpStatus.OK);
@@ -106,14 +125,18 @@ public class MainController {
 
 	@GetMapping(value = { "/randominteger" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RandomIntegerResponse> randominteger(final HttpServletRequest request) {
+		logger.info("________________________________________________________");
 		logger.info("call:randominteger");
+		logger.info("________________________________________________________");
 
 		return new ResponseEntity<>(new RandomIntegerResponse(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/randomfloat" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<RandomFloatResponse> randomfloat(final HttpServletRequest request) {
+		logger.info("________________________________________________________");
 		logger.info("call:randomfloat");
+		logger.info("________________________________________________________");
 
 		return new ResponseEntity<>(new RandomFloatResponse(), HttpStatus.OK);
 	}
@@ -123,10 +146,8 @@ public class MainController {
 			@RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:healthz");
-		logger.info(request.toString());
-		logger.info(headers.toString());
-
 		logger.info("________________________________________________________");
+
 		return new ResponseEntity<>(new HealthResponse(), HttpStatus.OK);
 	}
 
@@ -135,22 +156,14 @@ public class MainController {
 			@RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:randomhtmlcolor");
-		logger.info(request.toString());
-		logger.info(headers.toString());
-
 		logger.info("________________________________________________________");
-		try {
-			Random random = new Random();
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < 6; i++) {
-				sb.append(Helper.hexDigits[random.nextInt(Helper.hexDigits.length)]);
-			}
-			return new ResponseEntity<>(new HtmlColorResponse(sb.toString()), HttpStatus.OK);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>(new HtmlColorResponse(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-
+		Random random = new Random();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < 6; i++) {
+			sb.append(Helper.hexDigits[random.nextInt(Helper.hexDigits.length)]);
 		}
+		return new ResponseEntity<>(new HtmlColorResponse(sb.toString()), HttpStatus.OK);
+
 	}
 }
