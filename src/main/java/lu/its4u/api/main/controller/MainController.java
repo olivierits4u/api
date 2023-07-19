@@ -132,7 +132,14 @@ public class MainController {
 
 	@GetMapping(value = { "/randomhtmlcolor" }, produces = MediaType.APPLICATION_JSON_VALUE)
 
-	public ResponseEntity<HtmlColorResponse> randomhtmlcolor() {
+	public ResponseEntity<HtmlColorResponse> randomhtmlcolor(final HttpServletRequest request,
+			@RequestHeader Map<String, String> headers) {
+		logger.info("________________________________________________________");
+		logger.info("call:randomhtmlcolor");
+		logger.info(request.toString());
+		logger.info(headers.toString());
+
+		logger.info("________________________________________________________");
 		Random random = new Random();
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < 6; i++) {
