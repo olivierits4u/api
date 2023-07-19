@@ -1,6 +1,5 @@
 package lu.its4u.api.main.controller;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import lu.its4u.api.basic.domain.ApiCallResponse;
 import lu.its4u.api.basic.domain.DateResponse;
 import lu.its4u.api.basic.domain.DateTimeResponse;
 import lu.its4u.api.basic.domain.HealthResponse;
@@ -27,26 +27,23 @@ import lu.its4u.api.basic.domain.RandomFloatResponse;
 import lu.its4u.api.basic.domain.RandomIntegerResponse;
 import lu.its4u.api.basic.domain.RandomStringResponse;
 import lu.its4u.api.basic.domain.TimeResponse;
-import lu.its4u.api.entity.ApiCallEntity;
+import lu.its4u.api.basic.service.MainService;
 import lu.its4u.api.helper.Helper;
-import lu.its4u.api.repository.ApiCallRepository;
 
 @RestController
 public class MainController {
 	@Autowired
-	private ApiCallRepository repository;
 	Logger logger = LoggerFactory.getLogger(MainController.class);
 
-	void saveLogging(String source, String target) {
-		this.repository.save(new ApiCallEntity(null, new Date(), source, target));
-	}
+	@Autowired
+	private MainService service;
 
 	@GetMapping(value = { "/" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<IPResponse> main(final HttpServletRequest request) {
 		logger.info("________________________________________________________");
 		logger.info("call:main");
 		logger.info("________________________________________________________");
-		saveLogging(getIP(request), "MainController::main");
+		service.saveLogging(getIP(request), "MainController::main");
 		return ip(request);
 	}
 
@@ -56,7 +53,7 @@ public class MainController {
 		logger.info("call:catchAll");
 
 		logger.info("________________________________________________________");
-		saveLogging(getIP(request), "MainController::catchAll");
+		service.saveLogging(getIP(request), "MainController::catchAll");
 
 		return new ResponseEntity<>("error", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
@@ -68,7 +65,7 @@ public class MainController {
 		logger.info("call:headers");
 
 		logger.info("________________________________________________________");
-		saveLogging(getIP(request), "MainController::headers");
+		service.saveLogging(getIP(request), "MainController::headers");
 
 		return new ResponseEntity<>(headers, HttpStatus.OK);
 	}
@@ -79,7 +76,7 @@ public class MainController {
 		logger.info("call:ip");
 
 		logger.info("________________________________________________________");
-		saveLogging(getIP(request), "MainController::ip");
+		service.saveLogging(getIP(request), "MainController::ip");
 
 		return new ResponseEntity<>(new IPResponse(getIP(request)), HttpStatus.OK);
 	}
@@ -90,7 +87,7 @@ public class MainController {
 		logger.info("call:date");
 
 		logger.info("________________________________________________________");
-		saveLogging(getIP(request), "MainController::date");
+		service.saveLogging(getIP(request), "MainController::date");
 
 		return new ResponseEntity<>(new DateResponse(), HttpStatus.OK);
 	}
@@ -101,7 +98,7 @@ public class MainController {
 		logger.info("call:time");
 
 		logger.info("________________________________________________________");
-		saveLogging(getIP(request), "MainController::time");
+		service.saveLogging(getIP(request), "MainController::time");
 
 		return new ResponseEntity<>(new TimeResponse(), HttpStatus.OK);
 	}
@@ -112,7 +109,7 @@ public class MainController {
 		logger.info("call:datetime");
 
 		logger.info("________________________________________________________");
-		saveLogging(getIP(request), "MainController::datetime");
+		service.saveLogging(getIP(request), "MainController::datetime");
 
 		return new ResponseEntity<>(new DateTimeResponse(), HttpStatus.OK);
 	}
@@ -129,7 +126,7 @@ public class MainController {
 			return new ResponseEntity<>(new RandomStringResponse(chars), HttpStatus.OK);
 
 		}
-		saveLogging(getIP(request), "MainController::randomstring");
+		service.saveLogging(getIP(request), "MainController::randomstring");
 
 		return new ResponseEntity<>(new RandomStringResponse(), HttpStatus.OK);
 	}
@@ -139,7 +136,7 @@ public class MainController {
 		logger.info("________________________________________________________");
 		logger.info("call:randominteger");
 		logger.info("________________________________________________________");
-		saveLogging(getIP(request), "MainController::randominteger");
+		service.saveLogging(getIP(request), "MainController::randominteger");
 
 		return new ResponseEntity<>(new RandomIntegerResponse(), HttpStatus.OK);
 	}
@@ -149,7 +146,7 @@ public class MainController {
 		logger.info("________________________________________________________");
 		logger.info("call:randomfloat");
 		logger.info("________________________________________________________");
-		saveLogging(getIP(request), "MainController::randomfloat");
+		service.saveLogging(getIP(request), "MainController::randomfloat");
 
 		return new ResponseEntity<>(new RandomFloatResponse(), HttpStatus.OK);
 	}
@@ -160,7 +157,7 @@ public class MainController {
 		logger.info("________________________________________________________");
 		logger.info("call:healthz");
 		logger.info("________________________________________________________");
-		saveLogging(getIP(request), "MainController::healthz");
+		service.saveLogging(getIP(request), "MainController::healthz");
 
 		return new ResponseEntity<>(new HealthResponse(), HttpStatus.OK);
 	}
@@ -177,22 +174,22 @@ public class MainController {
 		for (int i = 0; i < 6; i++) {
 			sb.append(Helper.hexDigits[random.nextInt(Helper.hexDigits.length)]);
 		}
-		saveLogging(getIP(request), "MainController::randomhtmlcolor");
+		service.saveLogging(getIP(request), "MainController::randomhtmlcolor");
 
 		return new ResponseEntity<>(new HtmlColorResponse(sb.toString()), HttpStatus.OK);
 
 	}
 
 	@GetMapping(value = { "/calls" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ApiCallEntity>> calls(final HttpServletRequest request,
+	public ResponseEntity<List<ApiCallResponse>> calls(final HttpServletRequest request,
 			@RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:calls");
 		logger.info("________________________________________________________");
 
-		saveLogging(getIP(request), "MainController::calls");
+		service.saveLogging(getIP(request), "MainController::calls");
 
-		return new ResponseEntity<>(this.repository.findAll(), HttpStatus.OK);
+		return new ResponseEntity<>(this.service.getAllCalls(), HttpStatus.OK);
 
 	}
 
