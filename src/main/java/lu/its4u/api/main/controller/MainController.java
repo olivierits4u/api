@@ -149,6 +149,7 @@ public class MainController {
 			return new ResponseEntity<>(new HtmlColorResponse(sb.toString()), HttpStatus.OK);
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new ResponseEntity<>(new HtmlColorResponse(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 
 		}
