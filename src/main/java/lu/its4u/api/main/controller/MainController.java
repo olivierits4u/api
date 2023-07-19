@@ -1,6 +1,7 @@
 package lu.its4u.api.main.controller;
 
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lu.its4u.api.basic.domain.DateResponse;
 import lu.its4u.api.basic.domain.DateTimeResponse;
 import lu.its4u.api.basic.domain.HealthResponse;
+import lu.its4u.api.basic.domain.HtmlColorResponse;
 import lu.its4u.api.basic.domain.IPResponse;
 import lu.its4u.api.basic.domain.RandomFloatResponse;
 import lu.its4u.api.basic.domain.RandomIntegerResponse;
@@ -117,7 +119,8 @@ public class MainController {
 	}
 
 	@GetMapping(value = { "/healthz" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HealthResponse> healthz(final HttpServletRequest request,	@RequestHeader Map<String, String> headers) {
+	public ResponseEntity<HealthResponse> healthz(final HttpServletRequest request,
+			@RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:healthz");
 		logger.info(request.toString());
@@ -127,4 +130,15 @@ public class MainController {
 		return new ResponseEntity<>(new HealthResponse(), HttpStatus.OK);
 	}
 
+	@GetMapping(value = { "/randomhtmlcolor" }, produces = MediaType.APPLICATION_JSON_VALUE)
+
+	public ResponseEntity<HtmlColorResponse> randomhtmlcolor() {
+		Random random = new Random();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < 6; i++) {
+			sb.append(Helper.hexDigits[random.nextInt(Helper.hexDigits.length)]);
+		}
+		return new ResponseEntity<>(new HtmlColorResponse(sb.toString()), HttpStatus.OK);
+
+	}
 }
