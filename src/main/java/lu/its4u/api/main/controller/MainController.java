@@ -32,7 +32,6 @@ import lu.its4u.api.helper.Helper;
 
 @RestController
 public class MainController {
-	@Autowired
 	Logger logger = LoggerFactory.getLogger(MainController.class);
 
 	@Autowired
