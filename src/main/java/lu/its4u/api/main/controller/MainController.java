@@ -30,7 +30,12 @@ public class MainController {
 
 	@GetMapping(value = { "/" }, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<IPResponse> main(final HttpServletRequest request) {
+		logger.info("________________________________________________________");
 		logger.info("call:main");
+		logger.info(request.toString());
+
+		logger.info("________________________________________________________");
+
 		return ip(request);
 	}
 
@@ -112,9 +117,13 @@ public class MainController {
 	}
 
 	@GetMapping(value = { "/healthz" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HealthResponse> healthz(final HttpServletRequest request) {
+	public ResponseEntity<HealthResponse> healthz(final HttpServletRequest request,	@RequestHeader Map<String, String> headers) {
+		logger.info("________________________________________________________");
 		logger.info("call:healthz");
+		logger.info(request.toString());
+		logger.info(headers.toString());
 
+		logger.info("________________________________________________________");
 		return new ResponseEntity<>(new HealthResponse(), HttpStatus.OK);
 	}
 
