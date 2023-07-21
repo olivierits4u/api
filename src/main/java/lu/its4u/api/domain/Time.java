@@ -1,4 +1,4 @@
-package lu.its4u.api.basic.domain;
+package lu.its4u.api.domain;
 
 import java.text.SimpleDateFormat;
 
@@ -10,13 +10,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class TimeResponse {
+public class Time {
 	private String time;
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	private SimpleDateFormat sdf = new SimpleDateFormat("kk:mm:ss");
 
-	public TimeResponse() {
+	public Time() {
 		this.time = sdf.format(new java.util.Date());
 	}
 

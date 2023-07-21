@@ -1,4 +1,4 @@
-package lu.its4u.api.basic.domain;
+package lu.its4u.api.domain;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApiCallResponse {
+public class ApiCall {
 
 	private Long id;
 	private Date callDate;

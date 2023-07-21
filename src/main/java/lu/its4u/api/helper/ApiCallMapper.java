@@ -5,43 +5,43 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import lu.its4u.api.basic.domain.ApiCallResponse;
+import lu.its4u.api.domain.ApiCall;
 import lu.its4u.api.entity.ApiCallEntity;
 
 @Component
 public class ApiCallMapper {
 
-	public ApiCallResponse toApiCallResponse(ApiCallEntity input) {
+	public ApiCall toApiCall(ApiCallEntity input) {
 		if (input == null) {
 			return null;
 		}
-		return new ApiCallResponse(input.getId(), input.getCallDate(), input.getSource(), input.getTarget());
+		return new ApiCall(input.getId(), input.getCallDate(), input.getSource(), input.getTarget());
 	}
 
-	public List<ApiCallResponse> toApiCallResponses(List<ApiCallEntity> input) {
+	public List<ApiCall> toApiCalls(List<ApiCallEntity> input) {
 		if (input == null) {
 			return null;
 		}
-		List<ApiCallResponse> output = new ArrayList<ApiCallResponse>();
+		List<ApiCall> output = new ArrayList<ApiCall>();
 		for (ApiCallEntity entity : input) {
-			output.add(this.toApiCallResponse(entity));
+			output.add(this.toApiCall(entity));
 		}
 		return output;
 	}
 
-	public ApiCallEntity toApiCallEntity(ApiCallResponse input) {
+	public ApiCallEntity toApiCallEntity(ApiCall input) {
 		if (input == null) {
 			return null;
 		}
 		return new ApiCallEntity(input.getId(), input.getCallDate(), input.getSource(), input.getTarget());
 	}
 
-	public List<ApiCallEntity> toApiCallEntities(List<ApiCallResponse> input) {
+	public List<ApiCallEntity> toApiCallEntities(List<ApiCall> input) {
 		if (input == null) {
 			return null;
 		}
 		List<ApiCallEntity> output = new ArrayList<ApiCallEntity>();
-		for (ApiCallResponse entity : input) {
+		for (ApiCall entity : input) {
 			output.add(this.toApiCallEntity(entity));
 		}
 		return output;

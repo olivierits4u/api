@@ -1,15 +1,15 @@
-package lu.its4u.api.basic.domain;
+package lu.its4u.api.domain;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class HealthResponse {
+public class Health {
 	private String status;
 	private final String OK = "ok";
 
-	public HealthResponse() {
+	public Health() {
 		this.status = OK;
 
 	}

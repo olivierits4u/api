@@ -17,18 +17,19 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import lu.its4u.api.basic.domain.ApiCallResponse;
-import lu.its4u.api.basic.domain.DateResponse;
-import lu.its4u.api.basic.domain.DateTimeResponse;
-import lu.its4u.api.basic.domain.HealthResponse;
-import lu.its4u.api.basic.domain.HtmlColorResponse;
-import lu.its4u.api.basic.domain.IPResponse;
-import lu.its4u.api.basic.domain.RandomFloatResponse;
-import lu.its4u.api.basic.domain.RandomIntegerResponse;
-import lu.its4u.api.basic.domain.RandomStringResponse;
-import lu.its4u.api.basic.domain.TimeResponse;
-import lu.its4u.api.basic.service.MainService;
+import lu.its4u.api.domain.ApiCall;
+import lu.its4u.api.domain.Date;
+import lu.its4u.api.domain.DateTime;
+import lu.its4u.api.domain.Health;
+import lu.its4u.api.domain.HtmlColor;
+import lu.its4u.api.domain.IP;
+import lu.its4u.api.domain.Purged;
+import lu.its4u.api.domain.RandomFloat;
+import lu.its4u.api.domain.RandomInteger;
+import lu.its4u.api.domain.RandomString;
+import lu.its4u.api.domain.Time;
 import lu.its4u.api.helper.Helper;
+import lu.its4u.api.service.MainService;
 
 @RestController
 public class MainController {
@@ -38,7 +39,7 @@ public class MainController {
 	private MainService service;
 
 	@GetMapping(value = { "/" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<IPResponse> main(final HttpServletRequest request) {
+	public ResponseEntity<IP> main(final HttpServletRequest request) {
 		logger.info("________________________________________________________");
 		logger.info("call:main");
 		logger.info("________________________________________________________");
@@ -70,51 +71,51 @@ public class MainController {
 	}
 
 	@GetMapping(value = { "/ip" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<IPResponse> ip(final HttpServletRequest request) {
+	public ResponseEntity<IP> ip(final HttpServletRequest request) {
 		logger.info("________________________________________________________");
 		logger.info("call:ip");
 
 		logger.info("________________________________________________________");
 		service.saveLogging(getIP(request), "MainController::ip");
 
-		return new ResponseEntity<>(new IPResponse(getIP(request)), HttpStatus.OK);
+		return new ResponseEntity<>(new IP(getIP(request)), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/date" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<DateResponse> date(final HttpServletRequest request) {
+	public ResponseEntity<Date> date(final HttpServletRequest request) {
 		logger.info("________________________________________________________");
 		logger.info("call:date");
 
 		logger.info("________________________________________________________");
 		service.saveLogging(getIP(request), "MainController::date");
 
-		return new ResponseEntity<>(new DateResponse(), HttpStatus.OK);
+		return new ResponseEntity<>(new Date(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/time" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<TimeResponse> time(final HttpServletRequest request) {
+	public ResponseEntity<Time> time(final HttpServletRequest request) {
 		logger.info("________________________________________________________");
 		logger.info("call:time");
 
 		logger.info("________________________________________________________");
 		service.saveLogging(getIP(request), "MainController::time");
 
-		return new ResponseEntity<>(new TimeResponse(), HttpStatus.OK);
+		return new ResponseEntity<>(new Time(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/datetime" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<DateTimeResponse> datetime(final HttpServletRequest request) {
+	public ResponseEntity<DateTime> datetime(final HttpServletRequest request) {
 		logger.info("________________________________________________________");
 		logger.info("call:datetime");
 
 		logger.info("________________________________________________________");
 		service.saveLogging(getIP(request), "MainController::datetime");
 
-		return new ResponseEntity<>(new DateTimeResponse(), HttpStatus.OK);
+		return new ResponseEntity<>(new DateTime(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/randomstring" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RandomStringResponse> randomstring(final HttpServletRequest request,
+	public ResponseEntity<RandomString> randomstring(final HttpServletRequest request,
 			@RequestParam(defaultValue = "10", name = "chars", required = false) Integer chars) {
 		logger.info("________________________________________________________");
 		logger.info("call:randomstring");
@@ -122,47 +123,47 @@ public class MainController {
 		logger.info("________________________________________________________");
 
 		if (chars > 0) {
-			return new ResponseEntity<>(new RandomStringResponse(chars), HttpStatus.OK);
+			return new ResponseEntity<>(new RandomString(chars), HttpStatus.OK);
 
 		}
 		service.saveLogging(getIP(request), "MainController::randomstring");
 
-		return new ResponseEntity<>(new RandomStringResponse(), HttpStatus.OK);
+		return new ResponseEntity<>(new RandomString(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/randominteger" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RandomIntegerResponse> randominteger(final HttpServletRequest request) {
+	public ResponseEntity<RandomInteger> randominteger(final HttpServletRequest request) {
 		logger.info("________________________________________________________");
 		logger.info("call:randominteger");
 		logger.info("________________________________________________________");
 		service.saveLogging(getIP(request), "MainController::randominteger");
 
-		return new ResponseEntity<>(new RandomIntegerResponse(), HttpStatus.OK);
+		return new ResponseEntity<>(new RandomInteger(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/randomfloat" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RandomFloatResponse> randomfloat(final HttpServletRequest request) {
+	public ResponseEntity<RandomFloat> randomfloat(final HttpServletRequest request) {
 		logger.info("________________________________________________________");
 		logger.info("call:randomfloat");
 		logger.info("________________________________________________________");
 		service.saveLogging(getIP(request), "MainController::randomfloat");
 
-		return new ResponseEntity<>(new RandomFloatResponse(), HttpStatus.OK);
+		return new ResponseEntity<>(new RandomFloat(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/healthz" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HealthResponse> healthz(final HttpServletRequest request,
+	public ResponseEntity<Health> healthz(final HttpServletRequest request,
 			@RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:healthz");
 		logger.info("________________________________________________________");
 		service.saveLogging(getIP(request), "MainController::healthz");
 
-		return new ResponseEntity<>(new HealthResponse(), HttpStatus.OK);
+		return new ResponseEntity<>(new Health(), HttpStatus.OK);
 	}
 
 	@GetMapping(value = { "/randomhtmlcolor" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HtmlColorResponse> randomhtmlcolor(final HttpServletRequest request,
+	public ResponseEntity<HtmlColor> randomhtmlcolor(final HttpServletRequest request,
 			@RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:randomhtmlcolor");
@@ -175,12 +176,12 @@ public class MainController {
 		}
 		service.saveLogging(getIP(request), "MainController::randomhtmlcolor");
 
-		return new ResponseEntity<>(new HtmlColorResponse(sb.toString()), HttpStatus.OK);
+		return new ResponseEntity<>(new HtmlColor(sb.toString()), HttpStatus.OK);
 
 	}
 
 	@GetMapping(value = { "/calls" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ApiCallResponse>> calls(final HttpServletRequest request,
+	public ResponseEntity<List<ApiCall>> calls(final HttpServletRequest request,
 			@RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:calls");
@@ -194,11 +195,11 @@ public class MainController {
 
 	@GetMapping(value = { "/purge" }, produces = MediaType.APPLICATION_JSON_VALUE)
 
-	public ResponseEntity<HealthResponse> purge(final HttpServletRequest request) {
-		this.service.purge();
+	public ResponseEntity<Purged> purge(final HttpServletRequest request) {
+
 		service.saveLogging(getIP(request), "MainController::purge");
 
-		return new ResponseEntity<>(new HealthResponse(), HttpStatus.OK);
+		return new ResponseEntity<>(this.service.purge(), HttpStatus.OK);
 
 	}
 

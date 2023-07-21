@@ -1,4 +1,4 @@
-package lu.its4u.api.basic.domain;
+package lu.its4u.api.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class HtmlColorResponse {
-	private String color;
+public class IP {
+	private String ip;
 
 }

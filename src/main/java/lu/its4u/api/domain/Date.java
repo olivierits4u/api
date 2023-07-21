@@ -1,4 +1,4 @@
-package lu.its4u.api.basic.domain;
+package lu.its4u.api.domain;
 
 import java.text.SimpleDateFormat;
 
@@ -10,13 +10,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class DateResponse {
+public class Date {
 	private String date;
 	@Getter(AccessLevel.NONE)
 	@Setter(AccessLevel.NONE)
 	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
-	public DateResponse() {
+	public Date() {
 		this.date = sdf.format(new java.util.Date());
 	}
 

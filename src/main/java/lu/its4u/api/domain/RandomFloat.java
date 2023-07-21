@@ -1,4 +1,4 @@
-package lu.its4u.api.basic.domain;
+package lu.its4u.api.domain;
 
 import java.util.Random;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RandomFloatResponse {
+public class RandomFloat {
 
 	private float value;
 
@@ -19,7 +19,7 @@ public class RandomFloatResponse {
 
 	}
 
-	public RandomFloatResponse() {
+	public RandomFloat() {
 		this.value = generate();
 		System.out.println(value);
 	}

@@ -1,4 +1,4 @@
-package lu.its4u.api.basic.domain;
+package lu.its4u.api.domain;
 
 import java.util.Random;
 
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class RandomStringResponse {
+public class RandomString {
 
 	private String randomString;
 	@Getter(AccessLevel.NONE)
@@ -28,11 +28,11 @@ public class RandomStringResponse {
 
 	}
 
-	public RandomStringResponse() {
+	public RandomString() {
 		this.randomString = generateRandomString(10);
 	}
 
-	public RandomStringResponse(int length) {
+	public RandomString(int length) {
 		this.randomString = generateRandomString(length);
 	}
 

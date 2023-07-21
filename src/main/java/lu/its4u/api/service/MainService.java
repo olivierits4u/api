@@ -1,4 +1,4 @@
-package lu.its4u.api.basic.service;
+package lu.its4u.api.service;
 
 import java.util.Date;
 import java.util.List;
@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import lu.its4u.api.basic.domain.ApiCallResponse;
+import lu.its4u.api.domain.ApiCall;
+import lu.its4u.api.domain.Purged;
 import lu.its4u.api.entity.ApiCallEntity;
 import lu.its4u.api.helper.ApiCallMapper;
 import lu.its4u.api.repository.ApiCallRepository;
@@ -22,15 +23,15 @@ public class MainService {
 		this.repository.save(new ApiCallEntity(null, new Date(), source, target));
 	}
 
-	public List<ApiCallResponse> getAllCalls() {
-		return this.mapper.toApiCallResponses(this.repository.findAll());
+	public List<ApiCall> getAllCalls() {
+		return this.mapper.toApiCalls(this.repository.findAll());
 	}
 
-	public int purge() {
+	public Purged purge() {
 		long delta = 1 * 1000 * 60 * 60 * 24;
 		List<ApiCallEntity> list = this.repository.findByCallDateBefore(new Date(System.currentTimeMillis() - delta));
 		this.repository.deleteAll(list);
-		return list.size();
+		return new Purged(new Date(), list.size());
 	}
 
 }
