@@ -59,8 +59,7 @@ public class MainController {
 	}
 
 	@GetMapping(value = { "/headers" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Map<String, String>> headers(final HttpServletRequest request,
-			@RequestHeader Map<String, String> headers) {
+	public ResponseEntity<Map<String, String>> headers(final HttpServletRequest request, @RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:headers");
 
@@ -115,8 +114,7 @@ public class MainController {
 	}
 
 	@GetMapping(value = { "/randomstring" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<RandomString> randomstring(final HttpServletRequest request,
-			@RequestParam(defaultValue = "10", name = "chars", required = false) Integer chars) {
+	public ResponseEntity<RandomString> randomstring(final HttpServletRequest request, @RequestParam(defaultValue = "10", name = "chars", required = false) Integer chars) {
 		logger.info("________________________________________________________");
 		logger.info("call:randomstring");
 
@@ -152,8 +150,7 @@ public class MainController {
 	}
 
 	@GetMapping(value = { "/healthz" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Health> healthz(final HttpServletRequest request,
-			@RequestHeader Map<String, String> headers) {
+	public ResponseEntity<Health> healthz(final HttpServletRequest request, @RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:healthz");
 		logger.info("________________________________________________________");
@@ -163,8 +160,7 @@ public class MainController {
 	}
 
 	@GetMapping(value = { "/randomhtmlcolor" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<HtmlColor> randomhtmlcolor(final HttpServletRequest request,
-			@RequestHeader Map<String, String> headers) {
+	public ResponseEntity<HtmlColor> randomhtmlcolor(final HttpServletRequest request, @RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:randomhtmlcolor");
 		logger.info("________________________________________________________");
@@ -181,8 +177,7 @@ public class MainController {
 	}
 
 	@GetMapping(value = { "/calls" }, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<ApiCall>> calls(final HttpServletRequest request,
-			@RequestHeader Map<String, String> headers) {
+	public ResponseEntity<List<ApiCall>> calls(final HttpServletRequest request, @RequestHeader Map<String, String> headers) {
 		logger.info("________________________________________________________");
 		logger.info("call:calls");
 		logger.info("________________________________________________________");
